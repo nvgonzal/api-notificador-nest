@@ -1,25 +1,27 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
   @Get()
   findAll(): string {
-    return 'users';
+    return 'all users';
   }
   @Post()
-  create(data) {
-    //
+  create(@Body() createUserDto: CreateUserDto) {
+    //Todo: Crear usuario en base de datos
+    return 'create user';
   }
   @Get(':id')
-  findOne() {
+  findOne(@Param('id') id: number) {
     return 'user';
   }
   @Post(':id')
   update(data) {
-    return 'user';
+    return 'update user';
   }
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return 'user';
+  remove(@Param('id') id: number) {
+    return 'remove user';
   }
 }
