@@ -14,14 +14,14 @@ export class UsersController {
   }
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return 'user';
+    return 'user with id ' + id;
   }
   @Post(':id')
-  update(data) {
-    return 'update user';
+  update(@Param('id') id: number) {
+    return 'update user with id ' + id;
   }
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return 'remove user';
+    return 'remove user with id ' + id;
   }
 }
