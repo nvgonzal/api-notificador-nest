@@ -10,13 +10,17 @@ export class UsersService {
   getAll(): User[] {
     return this.users;
   }
-  getOne(id: number): User {
-    //TODO: Conectar a db
+  getOne(id: number) {
+    return this.users.find((user) => user.id === id);
   }
-  update(id: number){
-    //TODO: implementar db
+  update(updatedUser: User) {
+    this.users.map((user) => {
+      if (user.id === updatedUser.id) {
+        return updatedUser;
+      }
+    });
   }
-  delete(id: number){
-    //TODO implenetar db
+  delete(id: number) {
+    this.users.filter((user) => user['id'] !== id);
   }
 }
