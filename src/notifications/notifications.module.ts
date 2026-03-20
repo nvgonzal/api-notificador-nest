@@ -1,4 +1,11 @@
 import { Module } from '@nestjs/common';
+import { BullModule } from '@nestjs/bull';
 
-@Module({})
+@Module({
+  imports: [
+    BullModule.registerQueue({
+      name: 'notifications',
+    }),
+  ],
+})
 export class NotificationsModule {}

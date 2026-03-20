@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { NotificationsModule } from './notifications/notifications.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -26,6 +27,16 @@ import { NotificationsModule } from './notifications/notifications.module';
         database: configService.get<string>('database.database'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: configService.get<boolean>('database.synchronize'),
+      }),
+    }),
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        redis: {
+          host: configService.get<string>('database.host'),
+          port: configService.get<number>('database.port'),
+        },
       }),
     }),
     EventEmitterModule.forRoot(),
