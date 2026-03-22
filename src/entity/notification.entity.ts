@@ -1,0 +1,26 @@
+import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
+
+export class Notification {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  type: string;
+
+  @Column()
+  message: string;
+
+  @Column({ default: false })
+  isRead: boolean;
+
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  userId: number;
+
+  @ManyToOne(() => User, (user) => user.notifications, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+}
