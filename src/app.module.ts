@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
+import redisConfig from './config/redis.config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { NotificationsModule } from './notifications/notifications.module';
 import { BullModule } from '@nestjs/bullmq';
@@ -14,7 +15,7 @@ import { BullModule } from '@nestjs/bullmq';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-      load: [databaseConfig],
+      load: [databaseConfig, redisConfig],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -25,7 +26,8 @@ import { BullModule } from '@nestjs/bullmq';
         username: configService.get<string>('database.username'),
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.database'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: [__dirname + '/entity/*.entity{.ts,.js}'],
+        autoLoadEntities: true,
         synchronize: configService.get<boolean>('database.synchronize'),
       }),
     }),
@@ -34,8 +36,8 @@ import { BullModule } from '@nestjs/bullmq';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         connection: {
-          host: configService.get<string>('database.host'),
-          port: configService.get<number>('database.port'),
+          host: configService.get<string>('redis.host'),
+          port: configService.get<number>('redis.port'),
         },
       }),
     }),

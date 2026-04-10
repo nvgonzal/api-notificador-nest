@@ -1,6 +1,13 @@
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
+@Entity()
 export class Notification {
   @PrimaryGeneratedColumn()
   id: number;
