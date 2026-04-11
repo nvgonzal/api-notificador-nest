@@ -22,10 +22,10 @@ export class User {
   bday: Date;
 
   @Column()
-  createdAt: Date;
+  createdAt: Date = new Date();
 
   @Column()
-  updatedAt: Date;
+  updatedAt: Date = new Date();
 
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications: Notification[];

@@ -20,6 +20,7 @@ export class UsersService {
     newUser.email = user.email;
     newUser.lastName = user.lastName;
     newUser.bday = user.bday;
+    newUser.password = user.password;
     const userSaved = await this.userRepository.save(newUser);
     this.eventEmitter.emit(
       'user.registered',

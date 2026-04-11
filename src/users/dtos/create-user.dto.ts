@@ -11,4 +11,7 @@ export class CreateUserDto {
   email: string;
   @IsDateString()
   bday: Date;
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }
