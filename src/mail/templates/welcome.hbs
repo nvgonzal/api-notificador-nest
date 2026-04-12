@@ -1,0 +1,25 @@
+<!-- src/mail/templates/welcome.hbs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; }
+    .header { background: #3b82f6; color: white; padding: 20px; text-align: center; }
+    .content { padding: 20px; }
+    .footer { font-size: 12px; color: #666; padding: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1>¡Bienvenido!</h1>
+</div>
+<div class="content">
+  <p>Hola <strong>{{name}}</strong>,</p>
+  <p>Gracias por registrarte en Notification System. Tu cuenta ya está activa.</p>
+  <p>Si tienes preguntas, no dudes en contactarnos.</p>
+</div>
+<div class="footer">
+  <p>&copy; {{year}} Notification System</p>
+</div>
+</body>
+</html>

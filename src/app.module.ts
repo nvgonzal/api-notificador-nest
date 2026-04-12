@@ -9,6 +9,7 @@ import redisConfig from './config/redis.config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { NotificationsModule } from './notifications/notifications.module';
 import { BullModule } from '@nestjs/bullmq';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { BullModule } from '@nestjs/bullmq';
     EventEmitterModule.forRoot(),
     UsersModule,
     NotificationsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
