@@ -22,7 +22,7 @@ export class Notification {
   isRead: boolean;
 
   @Column()
-  createdAt: Date;
+  createdAt: Date = new Date();
 
   @Column()
   userId: number;

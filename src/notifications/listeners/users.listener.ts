@@ -21,8 +21,8 @@ export class UsersListener {
       'send-welcome-email',
       {
         userId: userRegisteredEvent.userId,
-        userEmail: userRegisteredEvent.email,
-        userName: userRegisteredEvent.name,
+        email: userRegisteredEvent.email,
+        name: userRegisteredEvent.name,
         type: 'welcome',
       },
       {
