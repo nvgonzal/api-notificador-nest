@@ -37,10 +37,7 @@ export class UsersService {
   async update(updatedUser: UpdateUserDto, id: number) {
     const user = await this.userRepository.findOneBy({ id: id });
     if (user) {
-      user.name = updatedUser.name;
-      user.email = updatedUser.email;
-      user.lastName = updatedUser.lastName;
-      user.bday = updatedUser.bday;
+      Object.assign(user, updatedUser);
       return this.userRepository.save(user);
     }
   }

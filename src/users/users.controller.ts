@@ -1,8 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from '../entity/user.entity';
+import { LowercaseEmailPipe } from './pipes/lowercase-email.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -12,19 +23,23 @@ export class UsersController {
     return this.userService.getAll();
   }
   @Post()
+  @UsePipes(LowercaseEmailPipe)
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.getOne(id);
   }
-  @Post(':id')
-  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.update(updateUserDto, id);
   }
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.userService.delete(id);
   }
 }
