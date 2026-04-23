@@ -6,6 +6,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserRegisteredEvent } from '../notifications/events/user-registered.event';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +21,7 @@ export class UsersService {
     newUser.email = user.email;
     newUser.lastName = user.lastName;
     newUser.bday = user.bday;
-    newUser.password = user.password;
+    newUser.password = await bcrypt.hash(newUser.password, 12);
     const userSaved = await this.userRepository.save(newUser);
     this.eventEmitter.emit(
       'user.registered',
@@ -43,5 +44,16 @@ export class UsersService {
   }
   async delete(id: number) {
     return this.userRepository.delete(id);
+  }
+  async validateCredentials(email: string, password: string) {
+    const user = await this.userRepository.findOneBy({ email: email });
+    if (!user) {
+      return null;
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return null;
+    }
+    return user;
   }
 }
