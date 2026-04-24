@@ -21,7 +21,7 @@ export class UsersService {
     newUser.email = user.email;
     newUser.lastName = user.lastName;
     newUser.bday = user.bday;
-    newUser.password = await bcrypt.hash(newUser.password, 12);
+    newUser.password = await bcrypt.hash(user.password, 12);
     const userSaved = await this.userRepository.save(newUser);
     this.eventEmitter.emit(
       'user.registered',
